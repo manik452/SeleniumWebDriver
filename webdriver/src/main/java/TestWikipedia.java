@@ -2,6 +2,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.List;
+
 /**
  * Created by Manik on 10/15/2017.
  */
@@ -49,7 +51,9 @@ public class TestWikipedia {
         }
 
         String url = "https://beta.meetme.com/#meet/member/";
-        long useraccountId = 216301589;
+        long useraccountId = 222003393;
+        int count = 0;
+        int td = 23;
         while (true) {
             String tempUrl = url + useraccountId + "/chat";
             driver.get(tempUrl);
@@ -64,9 +68,18 @@ public class TestWikipedia {
             try {
                 //userId = driver.findElement(By.className("input-lg"));
                 userId = driver.findElement(By.xpath("//*[@data-trigger='manual']"));
-                userId.sendKeys("Hello I like you");
+                List<WebElement> elements = driver.findElements(By.xpath("//*[@data-trigger='manual']"));
 
-                userId.sendKeys(Keys.ENTER);
+                for (WebElement webElement : elements) {
+                    try {
+                        webElement.sendKeys("Hello I like you. If you are a women replay my message. I am interested talk chat with you.");
+                        webElement.sendKeys(Keys.ENTER);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+                }
+
                 //driver.findElement(By.cssSelector("[class='btn-link']")).click();
                 //driver.findElement(By.cssSelector("[class='loginButton']")).click();
             } catch (Exception e) {
@@ -80,9 +93,80 @@ public class TestWikipedia {
 
             }
 
+
+            /*System.out.println("Start");
+            count=0;
+            try {
+                List<WebElement> refList = driver.findElements(By.tagName("a"));
+
+                try {
+                    for (WebElement we : refList) {
+
+                        try {
+                            String weburl = we.getAttribute("href");
+                            if (weburl != null && weburl.contains("https://beta.meetme.com/#meet/member/")) {
+                                count++;
+                                if (count < td) continue;
+                                String rooturl = weburl;
+                                url = weburl;
+                                driver.get(rooturl);
+                                try {
+                                    Thread.sleep(10000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    //userId = driver.findElement(By.xpath("//*[@data-trigger='manual']"));
+                                    List<WebElement> elements = driver.findElements(By.xpath("//*[@data-trigger='manual']"));
+
+                                    for (WebElement webElement : elements) {
+                                        try {
+                                            webElement.sendKeys("Hello I like you. If you love to talk reply my message.I am interested talk chat with you.");
+                                            webElement.sendKeys(Keys.ENTER);
+                                        } catch (Exception e) {
+                                            System.out.println(e);
+                                        }
+
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("TRACE IN ELEMENT SECTION");
+                                    e.printStackTrace();
+                                }
+
+                                //driver.findElement(By.cssSelector("[class='btn-link']")).click();
+                                //driver.findElement(By.cssSelector("[class='loginButton']")).click();
+                            }
+                        } catch (Exception e) {
+                            System.out.println("TRACE IN URL SECTION");
+                            e.printStackTrace();
+                        }
+
+                    }
+                } catch (Exception e) {
+                    System.out.println("TRACE IN LI SECTION" + e);
+                } finally {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }catch (Exception e){
+                System.out.println("GORAY GONDOGOL");
+                e.printStackTrace();
+            }
+
+
+            System.out.println(count);
+            td = count;*/
+
         }
 
-        //driver.findElement(By.cssSelector("[class='btn-default']")).click();
+    }
+
+    //driver.findElement(By.cssSelector("[class='btn-default']")).click();
         /*driver.findElement(By.partialLinkText("English")).click();
 
         try {
@@ -94,10 +178,8 @@ public class TestWikipedia {
 
         /*Cards cardsOwnCreditCardPayment = new Cards(driver);
         cardsOwnCreditCardPayment.ownCreditCardPayment();*/
-        //driver.close();
-
-
-    }
+    //driver.close();
 
 
 }
+
